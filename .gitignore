@@ -1,0 +1,14 @@
+# Visual Studio / .NET
+**/bin/
+**/obj/
+**/.vs/
+*.user
+*.suo
+*.cache
+*.vsidx
+*.db
+*.opendb
+*.log
+
+# NuGet packages (restore from packages.config)
+packages/
