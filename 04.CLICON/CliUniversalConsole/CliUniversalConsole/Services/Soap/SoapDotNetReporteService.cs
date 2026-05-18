@@ -71,22 +71,13 @@ namespace CliUniversalConsole.Services.Soap
 
                 foreach (var element in movimientoElements)
                 {
-                    var numeroText = element.Element(a + "NumeroMovimiento")?.Value
-                        ?? element.Element(a + "Numero")?.Value
-                        ?? "0";
-
-                    var fechaText = element.Element(a + "Fecha")?.Value ?? DateTime.Now.ToString();
-                    fechaText = fechaText.Replace("[UTC]", "");
-
                     var movimiento = new MovimientoDetalle
                     {
                         CodigoCuenta = element.Element(a + "CodigoCuenta")?.Value ?? "",
-                        Numero = int.Parse(numeroText),
-                        Fecha = DateTime.Parse(fechaText),
+                        NumeroMovimiento = int.Parse(element.Element(a + "NumeroMovimiento")?.Value ?? "0"),
+                        Fecha = DateTime.Parse((element.Element(a + "Fecha")?.Value ?? DateTime.Now.ToString()).Replace("[UTC]", "")),
                         TipoMovimiento = element.Element(a + "TipoMovimiento")?.Value ?? "",
-                        Accion = element.Element(a + "Accion")?.Value ?? "",
                         EmpleadoNombre = element.Element(a + "EmpleadoNombre")?.Value ?? "",
-                        CodigoEmpleado = element.Element(a + "CodigoEmpleado")?.Value ?? "",
                         CuentaReferencia = element.Element(a + "CuentaReferencia")?.Value,
                         Importe = decimal.Parse(element.Element(a + "Importe")?.Value ?? "0")
                     };

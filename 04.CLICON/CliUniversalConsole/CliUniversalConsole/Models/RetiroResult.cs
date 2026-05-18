@@ -26,20 +26,12 @@ namespace CliUniversalConsole.Models
             Console.WriteLine($"➖ Total Descontado: S/ {TotalDescontado:N2}");
             Console.WriteLine($"📊 Saldo Anterior: S/ {SaldoAnterior:N2}");
             Console.WriteLine($"📉 Saldo Nuevo: S/ {SaldoNuevo:N2}");
-            var itfMov = NumeroMovimientoITF ?? 0;
-            var cargoMov = NumeroMovimientoCargo ?? 0;
-            var hasMovimientos = NumeroMovimientoRetiro > 0 || itfMov > 0 || cargoMov > 0;
-
-            if (hasMovimientos)
-            {
-                Console.WriteLine($"\n🔢 Movimientos registrados:");
-                if (NumeroMovimientoRetiro > 0)
-                    Console.WriteLine($"   • Retiro: #{NumeroMovimientoRetiro}");
-                if (itfMov > 0)
-                    Console.WriteLine($"   • ITF: #{itfMov}");
-                if (cargoMov > 0)
-                    Console.WriteLine($"   • Cargo: #{cargoMov}");
-            }
+            Console.WriteLine($"\n🔢 Movimientos registrados:");
+            Console.WriteLine($"   • Retiro: #{NumeroMovimientoRetiro}");
+            if (NumeroMovimientoITF.HasValue)
+                Console.WriteLine($"   • ITF: #{NumeroMovimientoITF}");
+            if (NumeroMovimientoCargo.HasValue)
+                Console.WriteLine($"   • Cargo: #{NumeroMovimientoCargo}");
             Console.ResetColor();
         }
     }

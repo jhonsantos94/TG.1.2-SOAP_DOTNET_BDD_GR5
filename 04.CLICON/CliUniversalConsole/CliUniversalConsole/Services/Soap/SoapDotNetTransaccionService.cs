@@ -51,7 +51,7 @@ namespace CliUniversalConsole.Services.Soap
                     };
                 }
 
-                return ParseDepositoResponse(responseBody, request.CodigoCuenta);
+                return ParseDepositoResponse(responseBody);
             }
             catch (Exception ex)
             {
@@ -98,7 +98,7 @@ namespace CliUniversalConsole.Services.Soap
                     };
                 }
 
-                return ParseRetiroResponse(responseBody, request.CodigoCuenta);
+                return ParseRetiroResponse(responseBody);
             }
             catch (Exception ex)
             {
@@ -146,7 +146,7 @@ namespace CliUniversalConsole.Services.Soap
                     };
                 }
 
-                return ParseTransferenciaResponse(responseBody, request.CuentaOrigen, request.CuentaDestino);
+                return ParseTransferenciaResponse(responseBody);
             }
             catch (Exception ex)
             {
@@ -158,7 +158,7 @@ namespace CliUniversalConsole.Services.Soap
             }
         }
 
-        private TransaccionResult ParseDepositoResponse(string xmlResponse, string codigoCuenta)
+        private TransaccionResult ParseDepositoResponse(string xmlResponse)
         {
             try
             {
@@ -183,7 +183,7 @@ namespace CliUniversalConsole.Services.Soap
                 var datosElement = resultElement.Element(a + "Datos");
                 var depositoResult = new DepositoResult
                 {
-                    CodigoCuenta = codigoCuenta,
+                    CodigoCuenta = datosElement?.Element(a + "CodigoCuenta")?.Value ?? "",
                     ImporteDepositado = decimal.Parse(datosElement?.Element(a + "Importe")?.Value ?? "0"),
                     SaldoAnterior = decimal.Parse(datosElement?.Element(a + "SaldoAnterior")?.Value ?? "0"),
                     SaldoNuevo = decimal.Parse(datosElement?.Element(a + "SaldoNuevo")?.Value ?? "0"),
@@ -198,7 +198,7 @@ namespace CliUniversalConsole.Services.Soap
             }
         }
 
-        private TransaccionResult ParseRetiroResponse(string xmlResponse, string codigoCuenta)
+        private TransaccionResult ParseRetiroResponse(string xmlResponse)
         {
             try
             {
@@ -223,16 +223,16 @@ namespace CliUniversalConsole.Services.Soap
                 var datosElement = resultElement.Element(a + "Datos");
                 var retiroResult = new RetiroResult
                 {
-                    CodigoCuenta = codigoCuenta,
-                    ImporteRetirado = decimal.Parse(datosElement?.Element(a + "ImporteRetiro")?.Value ?? "0"),
+                    CodigoCuenta = datosElement?.Element(a + "CodigoCuenta")?.Value ?? "",
+                    ImporteRetirado = decimal.Parse(datosElement?.Element(a + "ImporteRetirado")?.Value ?? "0"),
                     ImporteITF = decimal.Parse(datosElement?.Element(a + "ITF")?.Value ?? "0"),
                     ImporteCargo = decimal.Parse(datosElement?.Element(a + "CostoPorMovimiento")?.Value ?? "0"),
                     TotalDescontado = decimal.Parse(datosElement?.Element(a + "TotalDescontado")?.Value ?? "0"),
                     SaldoAnterior = decimal.Parse(datosElement?.Element(a + "SaldoAnterior")?.Value ?? "0"),
                     SaldoNuevo = decimal.Parse(datosElement?.Element(a + "SaldoNuevo")?.Value ?? "0"),
-                    NumeroMovimientoRetiro = 0,
-                    NumeroMovimientoITF = null,
-                    NumeroMovimientoCargo = null
+                    NumeroMovimientoRetiro = int.Parse(datosElement?.Element(a + "NumeroMovimientoRetiro")?.Value ?? "0"),
+                    NumeroMovimientoITF = int.TryParse(datosElement?.Element(a + "NumeroMovimientoITF")?.Value, out var itf) ? itf : null,
+                    NumeroMovimientoCargo = int.TryParse(datosElement?.Element(a + "NumeroMovimientoCargo")?.Value, out var cargo) ? cargo : null
                 };
 
                 return new TransaccionResult { IsSuccess = true, Message = mensaje, Data = retiroResult };
@@ -243,7 +243,7 @@ namespace CliUniversalConsole.Services.Soap
             }
         }
 
-        private TransaccionResult ParseTransferenciaResponse(string xmlResponse, string cuentaOrigen, string cuentaDestino)
+        private TransaccionResult ParseTransferenciaResponse(string xmlResponse)
         {
             try
             {
@@ -271,18 +271,15 @@ namespace CliUniversalConsole.Services.Soap
                 
                 var transferenciaResult = new TransferenciaResult
                 {
-                    CuentaOrigen = cuentaOrigenElement?.Element(a + "Codigo")?.Value ?? cuentaOrigen,
-                    CuentaDestino = cuentaDestinoElement?.Element(a + "Codigo")?.Value ?? cuentaDestino,
+                    CuentaOrigen = cuentaOrigenElement?.Element(a + "Codigo")?.Value ?? "",
+                    CuentaDestino = cuentaDestinoElement?.Element(a + "Codigo")?.Value ?? "",
                     ImporteTransferido = decimal.Parse(datosElement?.Element(a + "ImporteTransferido")?.Value ?? "0"),
-                    ImporteITF = decimal.Parse(datosElement?.Element(a + "ITF")?.Value ?? "0"),
-                    ImporteCargo = decimal.Parse(datosElement?.Element(a + "CostoPorMovimiento")?.Value ?? "0"),
-                    TotalDescontado = decimal.Parse(datosElement?.Element(a + "TotalDescontado")?.Value ?? "0"),
                     SaldoAnteriorOrigen = decimal.Parse(cuentaOrigenElement?.Element(a + "SaldoAnterior")?.Value ?? "0"),
                     SaldoNuevoOrigen = decimal.Parse(cuentaOrigenElement?.Element(a + "SaldoNuevo")?.Value ?? "0"),
                     SaldoAnteriorDestino = decimal.Parse(cuentaDestinoElement?.Element(a + "SaldoAnterior")?.Value ?? "0"),
                     SaldoNuevoDestino = decimal.Parse(cuentaDestinoElement?.Element(a + "SaldoNuevo")?.Value ?? "0"),
-                    NumeroMovimientoOrigen = 0,
-                    NumeroMovimientoDestino = 0
+                    NumeroMovimientoOrigen = int.Parse(cuentaOrigenElement?.Element(a + "NumeroMovimiento")?.Value ?? "0"),
+                    NumeroMovimientoDestino = int.Parse(cuentaDestinoElement?.Element(a + "NumeroMovimiento")?.Value ?? "0")
                 };
 
                 return new TransaccionResult { IsSuccess = true, Message = mensaje, Data = transferenciaResult };
