@@ -1,7 +1,7 @@
 {
   "ExtendedData": {
     "inputs": [
-      "http://10.40.16.33:8004/ws/ServicioReporte.svc?wsdl"
+      "http://192.168.18.9:9098/ws/ServicioReporte.svc?wsdl"
     ],
     "collectionTypes": [
       "System.Array",

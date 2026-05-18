@@ -14,7 +14,7 @@ namespace DotNetSoapReport
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="MovimientoDetalleDTO", Namespace="http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR01.Models.DTOs")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MovimientoDetalleDTO", Namespace= "http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR05.Models.DTOs")]
     public partial class MovimientoDetalleDTO : object
     {
         

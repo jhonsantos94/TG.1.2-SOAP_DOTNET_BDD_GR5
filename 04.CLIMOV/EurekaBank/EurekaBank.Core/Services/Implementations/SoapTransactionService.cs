@@ -128,7 +128,13 @@ namespace EurekaBank.Core.Services.Implementations
         private async Task<TransactionResponse<DepositResponseData>> RealizarDepositoJavaManualAsync(DepositRequest request)
         {
             var endpointUrl = _configuration["Hosts:Soap:Java:Transaction"];
-            
+            var baseIp = _configuration["ServerConfig:BaseIp"];
+
+            if (!string.IsNullOrWhiteSpace(endpointUrl) && !string.IsNullOrWhiteSpace(baseIp))
+            {
+                endpointUrl = endpointUrl.Replace("{IP}", baseIp);
+            }
+
             try
             {
                 System.Diagnostics.Debug.WriteLine($"=== MANUAL SOAP JAVA DEPOSIT ===");
@@ -164,7 +170,13 @@ namespace EurekaBank.Core.Services.Implementations
         private async Task<TransactionResponse<WithdrawResponseData>> RealizarRetiroJavaManualAsync(DepositRequest request)
         {
             var endpointUrl = _configuration["Hosts:Soap:Java:Transaction"];
-            
+            var baseIp = _configuration["ServerConfig:BaseIp"];
+
+            if (!string.IsNullOrWhiteSpace(endpointUrl) && !string.IsNullOrWhiteSpace(baseIp))
+            {
+                endpointUrl = endpointUrl.Replace("{IP}", baseIp);
+            }
+
             try
             {
                 System.Diagnostics.Debug.WriteLine($"=== MANUAL SOAP JAVA WITHDRAW ===");
@@ -197,7 +209,13 @@ namespace EurekaBank.Core.Services.Implementations
         private async Task<TransactionResponse<TransferResponseData>> RealizarTransferenciaJavaManualAsync(TransferRequest request)
         {
             var endpointUrl = _configuration["Hosts:Soap:Java:Transaction"];
-            
+            var baseIp = _configuration["ServerConfig:BaseIp"];
+
+            if (!string.IsNullOrWhiteSpace(endpointUrl) && !string.IsNullOrWhiteSpace(baseIp))
+            {
+                endpointUrl = endpointUrl.Replace("{IP}", baseIp);
+            }
+
             try
             {
                 System.Diagnostics.Debug.WriteLine($"=== MANUAL SOAP JAVA TRANSFER ===");
@@ -457,6 +475,12 @@ namespace EurekaBank.Core.Services.Implementations
         private DotNetSoapTransaction.ServicioTransaccionClient GetDotNetClient()
         {
             var url = _configuration["Hosts:Soap:DotNet:Transaction"];
+            var baseIp = _configuration["ServerConfig:BaseIp"];
+
+            if (!string.IsNullOrWhiteSpace(url) && !string.IsNullOrWhiteSpace(baseIp))
+            {
+                url = url.Replace("{IP}", baseIp);
+            }
             return new DotNetSoapTransaction.ServicioTransaccionClient(Binding, new EndpointAddress(url));
         }
 

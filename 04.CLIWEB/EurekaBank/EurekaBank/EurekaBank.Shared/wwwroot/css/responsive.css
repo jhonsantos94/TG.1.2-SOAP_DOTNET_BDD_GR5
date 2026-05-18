@@ -10,7 +10,7 @@
     --info-color: #0dcaf0;
     --dark-color: #212529;
     --light-color: #f8f9fa;
-    --navbar-height: 94px; /* Altura fija del navbar */
+    --navbar-height: 64px; /* Altura fija del navbar */
 }
 
 /* Reset y base */
@@ -488,12 +488,12 @@ main {
 
     .main-content-logged .container-fluid {
         padding: 1rem 0.5rem;
-        padding-top: 1rem !important;
+        padding-top: calc(1rem + var(--navbar-height)) !important;
     }
 
     .spacing-responsive {
         padding: 0.75rem;
-        padding-top: 0.75rem !important;
+        padding-top: calc(0.75rem + var(--navbar-height)) !important;
     }
 
     .text-responsive-lg {
@@ -510,7 +510,7 @@ main {
 
     .container-responsive {
         padding: 0 0.75rem;
-        padding-top: 0.75rem !important;
+        padding-top: calc(0.75rem + var(--navbar-height)) !important;
     }
 }
 
@@ -531,12 +531,12 @@ main {
 
     .spacing-responsive {
         padding: 0.5rem;
-        padding-top: 0.5rem !important;
+        padding-top: calc(0.5rem + var(--navbar-height)) !important;
     }
 
     .container-responsive {
         padding: 0 0.5rem;
-        padding-top: 0.5rem !important;
+        padding-top: calc(0.5rem + var(--navbar-height)) !important;
     }
 
     .navbar-brand {

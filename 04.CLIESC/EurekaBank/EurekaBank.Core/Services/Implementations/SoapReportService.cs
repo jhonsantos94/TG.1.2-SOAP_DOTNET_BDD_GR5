@@ -94,6 +94,13 @@ namespace EurekaBank.Core.Services.Implementations
             try
             {
                 var url = _configuration["Hosts:Soap:Java:Report"];
+
+                    var baseIp = _configuration["ServerConfig:BaseIp"];
+
+                if (!string.IsNullOrWhiteSpace(url) && !string.IsNullOrWhiteSpace(baseIp))
+                {
+                    url = url.Replace("{IP}", baseIp);
+                }
                 System.Diagnostics.Debug.WriteLine($"=== DIRECT SOAP JAVA PROCESSING ===");
                 System.Diagnostics.Debug.WriteLine($"URL: {url}");
                 System.Diagnostics.Debug.WriteLine($"CodigoCuenta: {codigoCuenta}");
@@ -175,11 +182,20 @@ namespace EurekaBank.Core.Services.Implementations
             }
         }
 
+        
+
         private async Task<IEnumerable<MovementDto>> TryAlternativeParameterFormats(string codigoCuenta)
         {
             System.Diagnostics.Debug.WriteLine("=== TRYING ALTERNATIVE PARAMETER FORMATS ===");
-            
+
             var url = _configuration["Hosts:Soap:Java:Report"];
+            var baseIp = _configuration["ServerConfig:BaseIp"];
+
+            if (!string.IsNullOrWhiteSpace(url) && !string.IsNullOrWhiteSpace(baseIp))
+            {
+                url = url.Replace("{IP}", baseIp);
+            }
+
             if (string.IsNullOrEmpty(url)) return Enumerable.Empty<MovementDto>();
 
             // Intentar diferentes formatos de parámetros
@@ -363,7 +379,13 @@ namespace EurekaBank.Core.Services.Implementations
                             Fecha = DateTime.Now, // Usar fecha actual ya que viene vacío
                             TipoMovimiento = GetNodeValue(node, "tipoMovimiento") ?? "",
                             Accion = GetNodeValue(node, "accion") ?? "",
-                            Importe = decimal.TryParse(GetNodeValue(node, "importe"), out decimal importe) ? importe : 0,
+                            Importe = decimal.TryParse(
+                            GetNodeValue(node, "importe"),
+                            System.Globalization.NumberStyles.Any,
+                            System.Globalization.CultureInfo.InvariantCulture,
+                            out decimal importe)
+                                ? importe
+                                : 0,
                             EmpleadoNombre = GetNodeValue(node, "empleadoNombre") ?? "",
                             CuentaReferencia = GetNodeValue(node, "cuentaReferencia") ?? ""
                         };
@@ -420,12 +442,25 @@ namespace EurekaBank.Core.Services.Implementations
         private DotNetSoapReport.ServicioReporteClient GetDotNetClient()
         {
             var url = _configuration["Hosts:Soap:DotNet:Report"];
+            var baseIp = _configuration["ServerConfig:BaseIp"];
+
+            if (!string.IsNullOrWhiteSpace(url) && !string.IsNullOrWhiteSpace(baseIp))
+            {
+                url = url.Replace("{IP}", baseIp);
+            }
             return new DotNetSoapReport.ServicioReporteClient(Binding, new EndpointAddress(url));
         }
 
         private JavaSoapReport.ServicioReporteClient GetJavaClient()
         {
             var url = _configuration["Hosts:Soap:Java:Report"];
+            var baseIp = _configuration["ServerConfig:BaseIp"];
+
+            if (!string.IsNullOrWhiteSpace(url) && !string.IsNullOrWhiteSpace(baseIp))
+            {
+                url = url.Replace("{IP}", baseIp);
+            }
+
             return new JavaSoapReport.ServicioReporteClient(Binding, new EndpointAddress(url));
         }
 
@@ -547,7 +582,27 @@ namespace EurekaBank.Core.Services.Implementations
             {
                 var field = obj.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
                 var value = field?.GetValue(obj);
-                return value is decimal decimalValue ? decimalValue : 0m;
+
+                if (value == null)
+                    return 0m;
+
+                // Si ya es decimal
+                if (value is decimal decimalValue)
+                    return decimalValue;
+
+                // Si viene como string
+                if (value is string strValue)
+                {
+                    return decimal.TryParse(
+                        strValue,
+                        System.Globalization.NumberStyles.Any,
+                        System.Globalization.CultureInfo.InvariantCulture,
+                        out decimal parsed)
+                            ? parsed
+                            : 0m;
+                }
+
+                return Convert.ToDecimal(value, System.Globalization.CultureInfo.InvariantCulture);
             }
             catch
             {

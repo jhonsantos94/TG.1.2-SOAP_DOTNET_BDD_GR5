@@ -3,6 +3,6 @@
   <Project Path="EurekaBank/EurekaBank.Shared/EurekaBank.Shared.csproj" />
   <Project Path="EurekaBank/EurekaBank.Web/EurekaBank.Web.csproj" />
   <Project Path="EurekaBank/EurekaBank/EurekaBank.csproj">
-    <Deploy />
+    <Deploy Solution="Debug|*" />
   </Project>
 </Solution>

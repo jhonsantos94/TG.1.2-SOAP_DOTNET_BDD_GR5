@@ -33,6 +33,12 @@ namespace EurekaBank.Core.Services.Implementations
             {
                 string hostKey = _currentTarget == ApiPlatform.Java ? "Hosts:Rest:Java" : "Hosts:Rest:DotNet";
                 string? baseUrl = _configuration[hostKey];
+                string? baseIp = _configuration["ServerConfig:BaseIp"];
+
+                if (!string.IsNullOrWhiteSpace(baseUrl) && !string.IsNullOrWhiteSpace(baseIp))
+                {
+                    baseUrl = baseUrl.Replace("{IP}", baseIp);
+                }
 
                 if (string.IsNullOrEmpty(baseUrl))
                 {

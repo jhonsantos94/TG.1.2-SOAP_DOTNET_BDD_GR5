@@ -56,6 +56,13 @@ namespace EurekaBank.Core.Services.Implementations
                 string hostKey = _currentTarget == ApiPlatform.Java ? "Hosts:Rest:Java" : "Hosts:Rest:DotNet";
                 string? baseUrl = _configuration[hostKey];
 
+                var baseIp = _configuration["ServerConfig:BaseIp"];
+
+                if (!string.IsNullOrWhiteSpace(baseUrl) && !string.IsNullOrWhiteSpace(baseIp))
+                {
+                    baseUrl = baseUrl.Replace("{IP}", baseIp);
+                }
+
                 if (string.IsNullOrEmpty(baseUrl))
                 {
                     return new TransactionResponse<TResponseData> { Exitoso = false, Mensaje = $"La URL base para '{hostKey}' no está configurada." };

@@ -1,7 +1,7 @@
 {
   "ExtendedData": {
     "inputs": [
-      "http://10.40.16.33:8080/EurekaBank_Soap_Java_GR01/ServicioAutenticacion?wsdl"
+      "http://localhost:8080/EurekaBank_Soap_Java_GR01/ServicioAutenticacion?wsdl"
     ],
     "collectionTypes": [
       "System.Array",

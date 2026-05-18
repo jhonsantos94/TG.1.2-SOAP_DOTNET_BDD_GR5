@@ -14,7 +14,7 @@ namespace DotNetSoapAuth
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="RespuestaDTO", Namespace="http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR01.Models.DTOs")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RespuestaDTO", Namespace= "http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR05.Models.DTOs")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DotNetSoapAuth.Empleado))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DotNetSoapAuth.Cliente))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DotNetSoapAuth.Cuenta))]
@@ -88,7 +88,7 @@ namespace DotNetSoapAuth
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Empleado", Namespace="http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR01.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Empleado", Namespace= "http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR05.Models")]
     public partial class Empleado : object
     {
         
@@ -215,7 +215,7 @@ namespace DotNetSoapAuth
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Cliente", Namespace="http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR01.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Cliente", Namespace= "http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR05.Models")]
     public partial class Cliente : object
     {
         
@@ -357,7 +357,7 @@ namespace DotNetSoapAuth
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Cuenta", Namespace="http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR01.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Cuenta", Namespace= "http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR05.Models")]
     public partial class Cuenta : object
     {
         
@@ -514,7 +514,7 @@ namespace DotNetSoapAuth
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DepositoResultDTO", Namespace="http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR01.Models.DTOs")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DepositoResultDTO", Namespace= "http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR05.Models.DTOs")]
     public partial class DepositoResultDTO : object
     {
         
@@ -581,7 +581,7 @@ namespace DotNetSoapAuth
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="RetiroResultDTO", Namespace="http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR01.Models.DTOs")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RetiroResultDTO", Namespace= "http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR05.Models.DTOs")]
     public partial class RetiroResultDTO : object
     {
         
@@ -678,7 +678,7 @@ namespace DotNetSoapAuth
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TransferenciaResultDTO", Namespace="http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR01.Models.DTOs")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TransferenciaResultDTO", Namespace= "http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR05.Models.DTOs")]
     public partial class TransferenciaResultDTO : object
     {
         
@@ -775,7 +775,7 @@ namespace DotNetSoapAuth
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CuentaResumenDTO", Namespace="http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR01.Models.DTOs")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CuentaResumenDTO", Namespace= "http://schemas.datacontract.org/2004/07/EurekaBank_Soap_DotNet_GR05.Models.DTOs")]
     public partial class CuentaResumenDTO : object
     {
         
